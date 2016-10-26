@@ -1,0 +1,10 @@
+{
+    "name": "shubinmi/ant",
+    "description": "Ant framework. A small tool for big purpose.",
+    "require": {
+        "php": ">=5.4",
+        "pimple/pimple": "~3.0",
+        "nikic/fast-route": "^0.7.0",
+        "zendframework/zend-diactoros": "^1.3"
+    }
+}

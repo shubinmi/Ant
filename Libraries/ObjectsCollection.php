@@ -1,6 +1,6 @@
 <?php
 
-namespace Ant\Library;
+namespace Ant\Libraries;
 
 class ObjectsCollection extends \ArrayObject
 {
@@ -25,7 +25,8 @@ class ObjectsCollection extends \ArrayObject
                 if (
                     (
                         method_exists($object, 'get' . $propertyName)
-                        && strtolower($object->{'get' . $propertyName}()) == strtolower($propertyValue))
+                        && strtolower($object->{'get' . $propertyName}()) == strtolower($propertyValue)
+                    )
                     || (
                         !empty($object->{$propertyName})
                         && strtolower($object->{$propertyName}) == strtolower($propertyValue)

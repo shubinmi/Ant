@@ -3,6 +3,7 @@
 namespace Ant\Application;
 
 use FastRoute\Dispatcher;
+use FastRoute\RouteCollector;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Router
@@ -21,7 +22,7 @@ class Router
     {
         $this->routerParams = $routerParams;
         $this->dispatcher = \FastRoute\simpleDispatcher(
-            function (\FastRoute\RouteCollector $r) {
+            function (RouteCollector $r) {
                 foreach ($this->routerParams as $routeConf) {
                     call_user_func_array([$r, 'addRoute'], $routeConf);
                 }
@@ -44,19 +45,19 @@ class Router
         ];
 
         switch ($routeInfo[0]) {
-            case \FastRoute\Dispatcher::NOT_FOUND:
+            case Dispatcher::NOT_FOUND:
                 $result['handler'] = [
                     'controller' => 'Ant\Application\Controller',
                     'action'     => 'notFound',
                 ];
                 break;
-            case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+            case Dispatcher::METHOD_NOT_ALLOWED:
                 $result['handler'] = [
                     'controller' => 'Ant\Application\Controller',
                     'action'     => 'notFound',
                 ];
                 break;
-            case \FastRoute\Dispatcher::FOUND:
+            case Dispatcher::FOUND:
                 $result['handler'] = $routeInfo[1];
                 $result['params']  = $routeInfo[2];
                 break;

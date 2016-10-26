@@ -1,13 +1,13 @@
 <?php
 
-namespace Ant\Plugin\Seo;
+namespace Ant\Plugins\Seo;
 
-class Og implements SeoInterface
+class Meta implements SeoInterface
 {
     /**
      * @var string
      */
-    private $property;
+    private $name;
 
     /**
      * @var string
@@ -15,31 +15,31 @@ class Og implements SeoInterface
     private $content;
 
     /**
-     * @param string $property
+     * @param string $name
      * @param string $content
      */
-    public function __construct($property, $content)
+    public function __construct($name, $content)
     {
-        $this->property = $property;
-        $this->content  = $content;
+        $this->name    = $name;
+        $this->content = $content;
     }
 
     /**
      * @return string
      */
-    public function getProperty()
+    public function getName()
     {
-        return $this->property;
+        return $this->name;
     }
 
     /**
-     * @param string $property
+     * @param string $name
      *
      * @return $this
      */
-    public function setProperty($property)
+    public function setName($name)
     {
-        $this->property = $property;
+        $this->name = $name;
         return $this;
     }
 
@@ -67,6 +67,6 @@ class Og implements SeoInterface
      */
     public function render()
     {
-        return "<meta property='og:{$this->getProperty()}' content='{$this->getContent()}' />";
+        return "<meta name='{$this->getName()}' content='{$this->getContent()}' />";
     }
 }

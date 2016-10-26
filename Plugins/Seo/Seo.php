@@ -1,8 +1,8 @@
 <?php
 
-namespace Ant\Plugin\Seo;
+namespace Ant\Plugins\Seo;
 
-use Ant\Library\ObjectsCollection;
+use Ant\Libraries\ObjectsCollection;
 
 class Seo implements SeoInterface
 {

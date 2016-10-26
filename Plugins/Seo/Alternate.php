@@ -1,6 +1,6 @@
 <?php
 
-namespace Ant\Plugin\Seo;
+namespace Ant\Plugins\Seo;
 
 class Alternate implements SeoInterface
 {

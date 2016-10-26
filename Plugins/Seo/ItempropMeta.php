@@ -1,8 +1,8 @@
 <?php
 
-namespace Ant\Plugin\Seo;
+namespace Ant\Plugins\Seo;
 
-class ItempropLink implements SeoInterface
+class ItempropMeta implements SeoInterface
 {
     /**
      * @var string
@@ -12,16 +12,16 @@ class ItempropLink implements SeoInterface
     /**
      * @var string
      */
-    private $href;
+    private $content;
 
     /**
      * @param string $itemprop
-     * @param string $href
+     * @param string $content
      */
-    public function __construct($itemprop, $href)
+    public function __construct($itemprop, $content)
     {
         $this->itemprop = $itemprop;
-        $this->href     = $href;
+        $this->content  = $content;
     }
 
     /**
@@ -46,19 +46,19 @@ class ItempropLink implements SeoInterface
     /**
      * @return string
      */
-    public function getHref()
+    public function getContent()
     {
-        return $this->href;
+        return $this->content;
     }
 
     /**
-     * @param string $href
+     * @param string $content
      *
      * @return $this
      */
-    public function setHref($href)
+    public function setContent($content)
     {
-        $this->href = $href;
+        $this->content = $content;
         return $this;
     }
 
@@ -67,6 +67,6 @@ class ItempropLink implements SeoInterface
      */
     public function render()
     {
-        return "<link itemprop='{$this->getItemprop()}' href='{$this->getHref()}' />";
+        return "<meta itemprop='{$this->getItemprop()}' content='{$this->getContent()}' />";
     }
 }
