@@ -24,7 +24,7 @@ $configDirs = [
     'Config/Production'
 ];
 if (defined('APPLICATION_ENV') && APPLICATION_ENV == 'local') {
-    $configDirs[] = BASE_PATH . 'Config/Local';
+    $configDirs[] = 'Config/Local';
 }
 
 $app = new Application();
@@ -80,7 +80,8 @@ class Main extends Controller
     {
         $msg = $this->requestUriParam('msg');
         $elements = [
-            // It mean that {{body}} at layout.phtml (and at other view elements) will be replaced to content from main.phtml
+            // It mean that {{body}} at layout.phtml (and at other view elements) will be 
+            // replaced to content from main.phtml
             'body' => [
                 'path' => 'Views/main.phtml',
                 'args' => ['msg' => $msg]
