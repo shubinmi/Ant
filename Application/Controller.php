@@ -61,7 +61,7 @@ class Controller
     /**
      * @return array
      */
-    public function requestUriParams()
+    public function getRequestUriParams()
     {
         return $this->getRequest()->getQueryParams();
     }
@@ -71,15 +71,15 @@ class Controller
      *
      * @return string
      */
-    public function requestUriParam($name)
+    public function getRequestUriParam($name)
     {
-        return empty($this->requestUriParams()[$name]) ? '' : $this->requestUriParams()[$name];
+        return empty($this->getRequestUriParams()[$name]) ? '' : $this->getRequestUriParams()[$name];
     }
 
     /**
      * @return array
      */
-    public function requestPostParams()
+    public function getRequestPostParams()
     {
         $params = [];
         parse_str($this->getRequest()->getBody()->getContents(), $params);
@@ -92,15 +92,15 @@ class Controller
      *
      * @return mixed
      */
-    public function requestPostParam($name)
+    public function getRequestPostParam($name)
     {
-        return empty($this->requestPostParams()[$name]) ? null : $this->requestPostParams()[$name];
+        return empty($this->getRequestPostParams()[$name]) ? null : $this->getRequestPostParams()[$name];
     }
 
     /**
      * @return array
      */
-    public function requestGetParams()
+    public function getRequestGetParams()
     {
         $params = [];
         parse_str($this->getRequest()->getUri()->getQuery(), $params);
@@ -113,9 +113,9 @@ class Controller
      *
      * @return mixed
      */
-    public function requestGetParam($name)
+    public function getRequestGetParam($name)
     {
-        return empty($this->requestGetParams()[$name]) ? null : $this->requestGetParams()[$name];
+        return empty($this->getRequestGetParams()[$name]) ? null : $this->getRequestGetParams()[$name];
     }
 
     /**
