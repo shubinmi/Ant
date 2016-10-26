@@ -1,6 +1,6 @@
 # Ant framework - a small php tool for big purpose. 
 
-The concept - to know its place and purpose. 
+The concept - to know its place and purpose.
 The rule of this framework - to be flexible and not to be intrusive.
 
 ## Installation
@@ -78,7 +78,7 @@ class Main extends Controller
 {
     public function mainAction()
     {
-        $msg = $this->requestUriParam('msg');
+        $msg = $this->getRequestUriParam('msg');
         $elements = [
             // It mean that {{body}} at layout.phtml (and at other view elements) will be 
             // replaced to content from main.phtml
