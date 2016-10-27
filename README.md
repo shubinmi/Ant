@@ -1,4 +1,5 @@
-# Ant framework - a small php tool for big purpose. 
+# Ant framework 
+## A small php tool for big purpose
 
 The concept - to know its place and purpose.
 The rule of this framework - to be flexible and not to be intrusive.
@@ -84,7 +85,7 @@ class Main extends Controller
             // replaced to content from main.phtml
             'body' => [
                 'path' => 'Views/main.phtml',
-                'args' => ['msg' => $msg]
+                'vars' => ['msg' => $msg]
             ]
         ];
         
@@ -123,7 +124,7 @@ class Main extends Controller
 ```php
 Your message = "
 <?php
-    /** @var string $msg */
+    /** @var string|null $msg */
     echo $msg;
 ?>
 "

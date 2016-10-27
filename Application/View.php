@@ -22,7 +22,7 @@ class View
     /**
      * @var array
      */
-    private $layoutArgs = [];
+    private $layoutVars = [];
 
     /**
      * @param array $params
@@ -66,14 +66,14 @@ class View
         ob_start();
         header("Content-Type: text/html; charset=utf-8");
         if ($this->layoutPath) {
-            foreach ($this->layoutArgs as $name => $value) {
+            foreach ($this->layoutVars as $name => $value) {
                 ${$name} = $value;
             }
             include "{$this->layoutPath}";
         } else {
             /** @var ViewLayoutElement $viewElement */
             $viewElement = array_shift($this->layoutElements);
-            foreach ($viewElement->args as $name => $value) {
+            foreach ($viewElement->vars as $name => $value) {
                 ${$name} = $value;
             }
             include "{$viewElement->path}";
@@ -109,26 +109,95 @@ class View
     }
 
     /**
-     * @param array $layoutArgs
+     * @param array $layoutVars
      *
      * @return $this
      */
-    public function setLayoutArgs(array $layoutArgs)
+    public function setLayoutVars(array $layoutVars)
     {
-        $this->layoutArgs = $layoutArgs;
+        $this->layoutVars = $layoutVars;
 
         return $this;
     }
 
     /**
-     * @param array $args
+     * @param array $vars
      *
      * @return $this
      */
-    public function addLayoutArgs(array $args)
+    public function addLayoutVars(array $vars)
     {
-        foreach ($args as $key => $value) {
-            $this->layoutArgs[$key] = $value;
+        foreach ($vars as $key => $value) {
+            $this->layoutVars[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array|array[]|ViewLayoutElement|ViewLayoutElement[] $elements
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    private function setLayoutElements($elements)
+    {
+        if ($elements instanceof ViewLayoutElement) {
+            $this->layoutElements[$elements->name] = $elements;
+        } elseif (is_array($elements) && empty($elements['name'])) {
+            foreach ($elements as $element) {
+                if ($element instanceof ViewLayoutElement) {
+                    $this->layoutElements[$element->name] = $element;
+                } else {
+                    $this->validateParamsForViewElement($element)
+                        ->layoutElements[$element['name']] = new ViewLayoutElement($element);
+                }
+            }
+        } else {
+            $this->validateParamsForViewElement($elements)->layoutElements[$elements['name']] =
+                new ViewLayoutElement($elements);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array|ViewLayoutElement|ViewLayoutElement[] $elements
+     *
+     * @return $this
+     */
+    public function addLayoutElements($elements)
+    {
+        if ($elements instanceof ViewLayoutElement) {
+            $elements = [
+                $elements->name = [
+                    'path' => $elements->path,
+                    'vars' => $elements->vars
+                ]
+            ];
+        }
+        foreach ($elements as $elementName => $element) {
+            if ($element instanceof ViewLayoutElement) {
+                $element     = [
+                    'name' => $element->name,
+                    'path' => $elements->path,
+                    'vars' => $elements->vars
+                ];
+            } else {
+                $element['name'] = $elementName;
+            }
+            $this->validateParamsForViewElement($element);
+            if (empty($this->layoutElements[$elementName])) {
+                $elementParams = $element;
+            } elseif (!empty($this->layoutElements[$elementName]->vars) && !empty($element['vars'])) {
+                $vars                  =
+                    array_merge((array)$this->layoutElements[$elementName]->vars, $element['vars']);
+                $elementParams         = array_merge((array)$this->layoutElements[$elementName], $element);
+                $elementParams['vars'] = $vars;
+            } else {
+                $elementParams = array_merge((array)$this->layoutElements[$elementName], $element);
+            }
+            $this->layoutElements[$elementName] = new ViewLayoutElement($elementParams);
         }
 
         return $this;
@@ -138,38 +207,13 @@ class View
      * @param array $params
      *
      * @return $this
+     * @throws \Exception
      */
-    private function setLayoutElements(array $params)
+    private function validateParamsForViewElement(array $params)
     {
-        if (!empty($params['elements'])) {
-            foreach ($params['elements'] as $elementParams) {
-                $this->layoutElements[$elementParams['name']] = new ViewLayoutElement($elementParams);
-            }
-        } else {
-            $this->layoutElements[$params['name']] = new ViewLayoutElement($params);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param array $elements
-     *
-     * @return $this
-     */
-    public function addLayoutElements(array $elements)
-    {
-        foreach ($elements as $elementName => $element) {
-            if (empty($this->layoutElements[$elementName])) {
-                $elementParams = $element;
-            } elseif (!empty($this->layoutElements[$elementName]->args) && !empty($element['args'])) {
-                $args =  array_merge((array)$this->layoutElements[$elementName]->args, $element['args']);
-                $elementParams = array_merge((array)$this->layoutElements[$elementName], $element);
-                $elementParams['args'] = $args;
-            } else {
-                $elementParams = array_merge((array)$this->layoutElements[$elementName], $element);
-            }
-            $this->layoutElements[$elementName] = new ViewLayoutElement($elementParams);
+        $validateErrors = ViewLayoutElement::getErrorsByValidate($params);
+        if (!empty($validateErrors)) {
+            throw new \Exception(implode('; ', $validateErrors));
         }
 
         return $this;
@@ -211,8 +255,8 @@ class View
             if (!empty($this->layoutElements[$element])) {
                 ob_start();
                 header("Content-Type: text/html; charset=utf-8");
-                if (!empty($this->layoutElements[$element]->args) && is_array($this->layoutElements[$element]->args)) {
-                    foreach ($this->layoutElements[$element]->args as $name => $value) {
+                if (!empty($this->layoutElements[$element]->vars) && is_array($this->layoutElements[$element]->vars)) {
+                    foreach ($this->layoutElements[$element]->vars as $name => $value) {
                         ${$name} = $value;
                     }
                 }

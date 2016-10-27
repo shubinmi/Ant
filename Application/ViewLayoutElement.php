@@ -12,7 +12,7 @@ class ViewLayoutElement
     /**
      * @var array
      */
-    public $args = [];
+    public $vars = [];
 
     /**
      * @var string
@@ -29,5 +29,23 @@ class ViewLayoutElement
                 $this->{$property} = $value;
             }
         }
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    public static function getErrorsByValidate(array $params)
+    {
+        $errors = [];
+        if (empty($params['path'])) {
+            $errors[] = 'Empty required property "path"';
+        }
+        if (empty($params['name'])) {
+            $errors[] = 'Empty required property "name"';
+        }
+
+        return $errors;
     }
 }
