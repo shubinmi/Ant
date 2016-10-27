@@ -28,7 +28,12 @@ class Controller
     public function notFound()
     {
         $this->response = $this->response->withStatus(404);
-        return new View(['name' => 'body', 'path' => __DIR__ . '/../View/404.phtml']);
+        return new View(
+            [
+                ViewLayoutElement::PROPERTY_NAME => 'body',
+                ViewLayoutElement::PROPERTY_PATH => __DIR__ . '/../View/404.phtml'
+            ]
+        );
     }
 
     /**

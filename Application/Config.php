@@ -4,6 +4,9 @@ namespace Ant\Application;
 
 class Config
 {
+    /**
+     * @var array
+     */
     private $params = [];
 
     /**
@@ -41,7 +44,7 @@ class Config
      */
     private function load($path)
     {
-        $params       = require_once $path;
+        $params       = require_once($path);
         $this->params = array_replace_recursive($this->params, $params);
 
         return $this;

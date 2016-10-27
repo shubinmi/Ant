@@ -154,7 +154,7 @@ class View
                 }
             }
         } else {
-            $this->validateParamsForViewElement($elements)->layoutElements[$elements['name']] =
+            $this->validateParamsForViewElement($elements)->layoutElements[(string)$elements['name']] =
                 new ViewLayoutElement($elements);
         }
 
@@ -171,29 +171,34 @@ class View
         if ($elements instanceof ViewLayoutElement) {
             $elements = [
                 $elements->name = [
-                    'path' => $elements->path,
-                    'vars' => $elements->vars
+                    ViewLayoutElement::PROPERTY_PATH => $elements->path,
+                    ViewLayoutElement::PROPERTY_NAME => $elements->vars
                 ]
             ];
         }
         foreach ($elements as $elementName => $element) {
             if ($element instanceof ViewLayoutElement) {
-                $element     = [
-                    'name' => $element->name,
-                    'path' => $elements->path,
-                    'vars' => $elements->vars
+                $element = [
+                    ViewLayoutElement::PROPERTY_NAME => $element->name,
+                    ViewLayoutElement::PROPERTY_PATH => $elements->path,
+                    ViewLayoutElement::PROPERTY_VARS => $elements->vars
                 ];
             } else {
-                $element['name'] = $elementName;
+                $element[ViewLayoutElement::PROPERTY_NAME] = $elementName;
             }
             $this->validateParamsForViewElement($element);
             if (empty($this->layoutElements[$elementName])) {
                 $elementParams = $element;
-            } elseif (!empty($this->layoutElements[$elementName]->vars) && !empty($element['vars'])) {
-                $vars                  =
-                    array_merge((array)$this->layoutElements[$elementName]->vars, $element['vars']);
-                $elementParams         = array_merge((array)$this->layoutElements[$elementName], $element);
-                $elementParams['vars'] = $vars;
+            } elseif (
+                !empty($this->layoutElements[$elementName]->vars)
+                && !empty($element[ViewLayoutElement::PROPERTY_VARS])
+            ) {
+                $vars          = array_merge(
+                    (array)$this->layoutElements[$elementName]->vars, $element[ViewLayoutElement::PROPERTY_VARS]
+                );
+                $elementParams = array_merge((array)$this->layoutElements[$elementName], $element);
+
+                $elementParams[ViewLayoutElement::PROPERTY_VARS] = $vars;
             } else {
                 $elementParams = array_merge((array)$this->layoutElements[$elementName], $element);
             }

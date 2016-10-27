@@ -18,6 +18,9 @@ class Router
      */
     private $routerParams = [];
 
+    /**
+     * @param array $routerParams
+     */
     public function __construct(array $routerParams = [])
     {
         $this->routerParams = $routerParams;

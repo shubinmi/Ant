@@ -69,6 +69,11 @@ class Application
         $this->writeBody($view)->render();
     }
 
+    /**
+     * @param View|string $view
+     *
+     * @return $this
+     */
     private function writeBody($view)
     {
         if ($view instanceof View) {
@@ -80,6 +85,11 @@ class Application
         return $this;
     }
 
+    /**
+     * @param array $handler
+     *
+     * @return View|string
+     */
     private function getControllerResult(array $handler)
     {
         $controllerClass = '\\' . $handler['controller'];

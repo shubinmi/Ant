@@ -11,6 +11,9 @@ class DI
      */
     private $container;
 
+    /**
+     * @param array $config
+     */
     public function __construct(array $config = [])
     {
         $this->container = new Container();

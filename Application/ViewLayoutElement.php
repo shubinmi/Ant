@@ -4,6 +4,10 @@ namespace Ant\Application;
 
 class ViewLayoutElement
 {
+    const PROPERTY_PATH = 'path';
+    const PROPERTY_VARS = 'vars';
+    const PROPERTY_NAME = 'name';
+
     /**
      * @var string
      */
@@ -39,11 +43,11 @@ class ViewLayoutElement
     public static function getErrorsByValidate(array $params)
     {
         $errors = [];
-        if (empty($params['path'])) {
-            $errors[] = 'Empty required property "path"';
+        if (empty($params[self::PROPERTY_PATH])) {
+            $errors[] = 'Empty required property "'. self::PROPERTY_PATH . '"';
         }
-        if (empty($params['name'])) {
-            $errors[] = 'Empty required property "name"';
+        if (empty($params[self::PROPERTY_NAME])) {
+            $errors[] = 'Empty required property "' . self::PROPERTY_NAME . '"';
         }
 
         return $errors;
