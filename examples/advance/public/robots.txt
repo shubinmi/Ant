@@ -1,0 +1,3 @@
+UserStructure-Agent: *
+Disallow: /admin
+Host: www.artvolna.com
