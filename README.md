@@ -135,7 +135,7 @@ Your message = "
 ## Roadmap
 
 - [x] Core Framework
-- [ ] + Examples
+- [ ] + Examples (Add to advance SEO, Own view plugin, DI)
 - [ ] + Tests
 - [ ] + Validators
 - [ ] + RPC API
