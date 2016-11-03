@@ -2,20 +2,19 @@
 
 namespace Application\Controllers;
 
-use Ant\Application\Controller;
-use Ant\Application\View;
 use Application\Services\MainStory;
+use Common\Factories\CoreController;
 
-class Main extends Controller
+class Main extends CoreController
 {
     /**
      * @var MainStory
      */
     private $mainStory;
 
-    public function __construct()
+    public function init()
     {
-        $this->mainStory = new MainStory();
+        $this->mainStory = new MainStory($this->getDi());
     }
 
     public function mainAction()
@@ -24,7 +23,7 @@ class Main extends Controller
 
         if ($this->mainStory->isUserAuthSuccess()) {
             $this->mainStory->rewriteUserName($name);
-        } elseif ($name) {
+        } else {
             $this->mainStory->createUser($name);
         }
 
@@ -42,16 +41,5 @@ class Main extends Controller
         ];
 
         return $this->getView()->addLayoutElements($elements);
-    }
-
-    /**
-     * @return View
-     */
-    private function getView()
-    {
-        $view = new View();
-        $view->setLayoutPath(__DIR__ . '/../Views/layout.phtml');
-
-        return $view;
     }
 }

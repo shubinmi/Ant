@@ -5,7 +5,7 @@ namespace User\Services;
 use User\Entities\UserStructure;
 use User\Repositories\UserData;
 
-class UserStory
+class UserService
 {
     /**
      * @var UserData
@@ -18,13 +18,22 @@ class UserStory
     private $user;
 
     /**
+     * @var string
+     */
+    private $defaultName;
+
+    /**
      * @var array
      */
     private $errors = [];
 
-    public function __construct()
+    /**
+     * @param string $defaultName
+     */
+    public function __construct($defaultName)
     {
-        $this->userData = new UserData();
+        $this->defaultName = (string)$defaultName;
+        $this->userData    = new UserData();
     }
 
     /**
@@ -63,6 +72,9 @@ class UserStory
      */
     public function createNew($name)
     {
+        if (!$name) {
+            $name = $this->defaultName;
+        }
         if (!$user = $this->userData->create(time(), $name)) {
             $this->errors[] = $this->userData->getLastError();
             return false;

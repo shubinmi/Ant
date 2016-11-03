@@ -2,7 +2,7 @@
 
 namespace User\Entities;
 
-use Libraries\Hydrators\ConstructFromArrayOrJson;
+use Common\Libraries\Hydrators\ConstructFromArrayOrJson;
 
 class UserStructure extends ConstructFromArrayOrJson
 {

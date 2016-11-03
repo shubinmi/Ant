@@ -99,6 +99,7 @@ class Application
         $controller->setRequest($this->request);
         $controller->setDi($this->di);
         $controller->setResponse($this->response);
+        $controller->init();
 
         $view           = $controller->{$action}();
         $this->response = $controller->getResponse();

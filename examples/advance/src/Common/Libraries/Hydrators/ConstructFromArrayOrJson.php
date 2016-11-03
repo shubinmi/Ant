@@ -1,6 +1,6 @@
 <?php
 
-namespace Libraries\Hydrators;
+namespace Common\Libraries\Hydrators;
 
 abstract class ConstructFromArrayOrJson
 {

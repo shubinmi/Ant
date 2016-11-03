@@ -44,6 +44,10 @@ class Controller
         return $this->di;
     }
 
+    public function init()
+    {
+    }
+
     /**
      * @param DI $di
      *

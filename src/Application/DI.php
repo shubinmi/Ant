@@ -31,7 +31,7 @@ class DI
      * @return mixed
      * @throws \Exception
      */
-    public function getService($key)
+    public function getContainer($key)
     {
         if (empty($this->container[$key])) {
             throw new \Exception("Try to get incorrect DI container with key as '{$key}'");

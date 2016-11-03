@@ -1,2 +1,6 @@
 <?php
-return [];
+return [
+    'di' => [
+        'default-user-name' => 'Alexandro'
+    ]
+];

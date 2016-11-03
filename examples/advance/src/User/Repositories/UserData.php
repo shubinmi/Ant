@@ -2,7 +2,7 @@
 
 namespace User\Repositories;
 
-use Helpers\Cookies;
+use Common\Helpers\Cookies;
 use User\Entities\UserStructure;
 
 class UserData

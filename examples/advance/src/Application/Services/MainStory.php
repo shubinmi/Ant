@@ -2,14 +2,15 @@
 
 namespace Application\Services;
 
-use User\Services\UserStory;
+use Ant\Application\DI;
+use User\Services\UserService;
 
 class MainStory
 {
     /**
-     * @var UserStory
+     * @var UserService
      */
-    private $userStory;
+    private $userService;
 
     /**
      * @var array
@@ -21,9 +22,10 @@ class MainStory
      */
     private $errors = [];
 
-    public function __construct()
+    public function __construct(DI $diContainer)
     {
-        $this->userStory = new UserStory();
+        $defaultName = $diContainer->getContainer('default-user-name');
+        $this->userService = new UserService($defaultName);
     }
 
     /**
@@ -31,8 +33,9 @@ class MainStory
      */
     public function isUserAuthSuccess()
     {
-        $this->loggingActivities[] = 'User auth have ' . ($this->userStory->auth() ? 'success' : 'fail');
-        return $this->userStory->auth();
+        $isUserAuthenticated       = $this->userService->auth();
+        $this->loggingActivities[] = 'User auth have ' . ($isUserAuthenticated ? 'success' : 'fail');
+        return $isUserAuthenticated;
     }
 
     /**
@@ -42,8 +45,8 @@ class MainStory
      */
     public function createUser($name)
     {
-        if (!$isCreated = $this->userStory->createNew($name)) {
-            $this->errors = array_merge($this->errors, $this->userStory->getErrors());
+        if (!$isCreated = $this->userService->createNew($name)) {
+            $this->errors = array_merge($this->errors, $this->userService->getErrors());
         }
         $this->loggingActivities[] = 'Creating of user have ' . ($isCreated ? 'success' : 'fail');
         return $this;
@@ -56,8 +59,8 @@ class MainStory
      */
     public function rewriteUserName($name)
     {
-        if (!$isUpdated = $this->userStory->rewriteName($name)) {
-            $this->errors = array_merge($this->errors, $this->userStory->getErrors());
+        if (!$isUpdated = $this->userService->rewriteName($name)) {
+            $this->errors = array_merge($this->errors, $this->userService->getErrors());
         }
         $this->loggingActivities[] = 'User name updating have ' . ($isUpdated ? 'success' : 'fail');
         return $this;
