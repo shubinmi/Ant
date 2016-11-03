@@ -43,7 +43,7 @@ class MainStory
      *
      * @return $this
      */
-    public function createUser($name)
+    public function createUser(&$name)
     {
         if (!$isCreated = $this->userService->createNew($name)) {
             $this->errors = array_merge($this->errors, $this->userService->getErrors());

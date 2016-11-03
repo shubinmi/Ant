@@ -19,7 +19,7 @@ class CoreController extends Controller
     {
         if (!$this->view) {
             $view = new View();
-            $view->setLayoutPath(__DIR__ . '/../Views/layout.phtml');
+            $view->setLayoutPath(BASE_PATH . '/src/Application/Views/layout.phtml');
             $this->view = $view;
         }
         return $this->view;

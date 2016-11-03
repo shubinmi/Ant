@@ -261,8 +261,8 @@ class View
                 ob_start();
                 header("Content-Type: text/html; charset=utf-8");
                 if (!empty($this->layoutElements[$element]->vars) && is_array($this->layoutElements[$element]->vars)) {
-                    foreach ($this->layoutElements[$element]->vars as $name => $value) {
-                        ${$name} = $value;
+                    foreach ($this->layoutElements[$element]->vars as $nameAntVar => $valueAntVar) {
+                        ${$nameAntVar} = $valueAntVar;
                     }
                 }
                 include "{$this->layoutElements[$element]->path}";

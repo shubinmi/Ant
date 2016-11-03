@@ -70,7 +70,7 @@ class UserService
      *
      * @return bool
      */
-    public function createNew($name)
+    public function createNew(&$name)
     {
         if (!$name) {
             $name = $this->defaultName;
