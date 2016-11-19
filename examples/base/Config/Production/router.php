@@ -4,7 +4,7 @@ return [
     'router' => [
         'main' => [
             'GET', '/[{name}[/]]', [
-                'controller' => 'Controllers\Main',
+                'controller' => 'AntExample\Controllers\Main',
                 'action'     => 'mainAction'
             ]
         ]

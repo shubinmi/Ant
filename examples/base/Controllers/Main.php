@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace AntExample\Controllers;
 
 use Ant\Application\Controller;
 use Ant\Application\View;
