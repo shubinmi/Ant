@@ -1,9 +1,9 @@
 <?php
 
-namespace Application\Services;
+namespace AntExample\Application\Services;
 
 use Ant\Application\DI;
-use User\Services\UserService;
+use AntExample\User\Services\UserService;
 
 class MainStory
 {

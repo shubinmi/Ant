@@ -1,8 +1,8 @@
 <?php
 
-namespace User\Entities;
+namespace AntExample\User\Entities;
 
-use Common\Libraries\Hydrators\ConstructFromArrayOrJson;
+use AntExample\Common\Libraries\Hydrators\ConstructFromArrayOrJson;
 
 class UserStructure extends ConstructFromArrayOrJson
 {

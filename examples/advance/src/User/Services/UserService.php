@@ -1,9 +1,9 @@
 <?php
 
-namespace User\Services;
+namespace AntExample\User\Services;
 
-use User\Entities\UserStructure;
-use User\Repositories\UserData;
+use AntExample\User\Entities\UserStructure;
+use AntExample\User\Repositories\UserData;
 
 class UserService
 {

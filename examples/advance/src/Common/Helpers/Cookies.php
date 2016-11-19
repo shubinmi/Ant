@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Helpers;
+namespace AntExample\Common\Helpers;
 
 class Cookies
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Application\Controllers;
+namespace AntExample\Application\Controllers;
 
-use Application\Services\MainStory;
-use Common\Factories\CoreController;
+use AntExample\Application\Services\MainStory;
+use AntExample\Common\Factories\CoreController;
 
 class Main extends CoreController
 {

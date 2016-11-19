@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Factories;
+namespace AntExample\Common\Factories;
 
 use Ant\Application\Controller;
 use Ant\Application\View;

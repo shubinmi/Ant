@@ -1,9 +1,9 @@
 <?php
 
-namespace User\Repositories;
+namespace AntExample\User\Repositories;
 
-use Common\Helpers\Cookies;
-use User\Entities\UserStructure;
+use AntExample\Common\Helpers\Cookies;
+use AntExample\User\Entities\UserStructure;
 
 class UserData
 {
