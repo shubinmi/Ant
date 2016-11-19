@@ -9,7 +9,7 @@ The rule of this framework - to be flexible and not to be intrusive.
 Install the latest version with
 
 ```bash
-$ composer require shubinmi/ant
+$ composer require shubinmi/ant-framework-php
 ```
 
 ## Basic Usage

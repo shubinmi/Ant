@@ -1,11 +1,11 @@
 {
-    "name": "shubinmi/ant",
+    "name": "shubinmi/ant-framework-php",
     "description": "Ant framework. A small tool for big purpose.",
     "keywords": [
         "ant",
         "framework"
     ],
-    "homepage": "https://github.com/shubinmi/ant",
+    "homepage": "https://github.com/shubinmi/ant-framework-php",
     "type": "library",
     "license": "BSD-3-Clause",
     "authors": [
@@ -17,8 +17,8 @@
         }
     ],
     "support": {
-        "wiki": "https://github.com/shubinmi/ant",
-        "source": "https://github.com/shubinmi/ant"
+        "wiki": "https://github.com/shubinmi/ant-framework-php",
+        "source": "https://github.com/shubinmi/ant-framework-php"
     },
     "require": {
         "php": ">=5.4",
