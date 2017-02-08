@@ -1,6 +1,6 @@
 <?php
 
-namespace AntExample\Application\Services;
+namespace AntExample\Application\Stories;
 
 use Ant\Application\DI;
 use AntExample\User\Services\UserService;
@@ -34,7 +34,7 @@ class MainStory
     public function isUserAuthSuccess()
     {
         $isUserAuthenticated       = $this->userService->auth();
-        $this->loggingActivities[] = 'User auth have ' . ($isUserAuthenticated ? 'success' : 'fail');
+        $this->loggingActivities[] = 'User auth was ' . ($isUserAuthenticated ? 'success' : 'fail');
         return $isUserAuthenticated;
     }
 
@@ -48,7 +48,7 @@ class MainStory
         if (!$isCreated = $this->userService->createNew($name)) {
             $this->errors = array_merge($this->errors, $this->userService->getErrors());
         }
-        $this->loggingActivities[] = 'Creating of user have ' . ($isCreated ? 'success' : 'fail');
+        $this->loggingActivities[] = 'Creating of user was ' . ($isCreated ? 'success' : 'fail');
         return $this;
     }
 
@@ -62,7 +62,7 @@ class MainStory
         if (!$isUpdated = $this->userService->rewriteName($name)) {
             $this->errors = array_merge($this->errors, $this->userService->getErrors());
         }
-        $this->loggingActivities[] = 'User name updating have ' . ($isUpdated ? 'success' : 'fail');
+        $this->loggingActivities[] = 'User name updating was ' . ($isUpdated ? 'success' : 'fail');
         return $this;
     }
 

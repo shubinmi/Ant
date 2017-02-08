@@ -1,5 +1,10 @@
 {
     "require": {
-        "shubinmi/ant": "^1.0"
+        "shubinmi/ant-framework-php": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "AntExample\\": "src/"
+        }
     }
 }

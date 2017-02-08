@@ -10,5 +10,4 @@ if(!defined('APPLICATION_ENV')) {
     }
 }
 
-require_once BASE_PATH . '/autoload.php';
 require BASE_PATH . '/vendor/autoload.php';

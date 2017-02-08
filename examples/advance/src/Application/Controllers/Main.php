@@ -2,7 +2,7 @@
 
 namespace AntExample\Application\Controllers;
 
-use AntExample\Application\Services\MainStory;
+use AntExample\Application\Stories\MainStory;
 use AntExample\Common\Factories\CoreController;
 
 class Main extends CoreController
@@ -28,7 +28,7 @@ class Main extends CoreController
         }
 
         $elements = [
-            // It mean that {{body}} at layout.phtml (and at other view elements) will be
+            // It means that {{body}} at layout.phtml (and at other view elements) will be
             // replaced to content from main.phtml
             'body' => [
                 'path' => __DIR__ . '/../Views/main.phtml',

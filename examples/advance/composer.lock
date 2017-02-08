@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3e82f002a7f059ec81c02450a2dfb5f",
-    "content-hash": "fa0f1c8644d65942c8cf66b0e4d827ac",
+    "hash": "d0f67470a7ac7c77575ade9d84148a83",
+    "content-hash": "6a8b5b92aee4d008487ae8a4ef6ee950",
     "packages": [
         {
             "name": "nikic/fast-route",
-            "version": "v0.7.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/FastRoute.git",
-                "reference": "8164b4a0d8afde4eae5f1bfc39084972ba23ad36"
+                "reference": "b5f95749071c82a8e0f58586987627054400cdf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/8164b4a0d8afde4eae5f1bfc39084972ba23ad36",
-                "reference": "8164b4a0d8afde4eae5f1bfc39084972ba23ad36",
+                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/b5f95749071c82a8e0f58586987627054400cdf6",
+                "reference": "b5f95749071c82a8e0f58586987627054400cdf6",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2015-12-20 19:50:12"
+            "time": "2017-01-19 11:35:12"
         },
         {
             "name": "pimple/pimple",
@@ -147,23 +147,23 @@
             "time": "2016-08-06 14:39:51"
         },
         {
-            "name": "shubinmi/ant",
-            "version": "1.0.0",
+            "name": "shubinmi/ant-framework-php",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/shubinmi/ant.git",
-                "reference": "4bab025e76e42ddd943d5c64bb915c3a6f5582a0"
+                "url": "https://github.com/shubinmi/ant-framework-php.git",
+                "reference": "bd593e9ac587b92b0af3fae4fb186cc573c454ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shubinmi/ant/zipball/4bab025e76e42ddd943d5c64bb915c3a6f5582a0",
-                "reference": "4bab025e76e42ddd943d5c64bb915c3a6f5582a0",
+                "url": "https://api.github.com/repos/shubinmi/ant-framework-php/zipball/bd593e9ac587b92b0af3fae4fb186cc573c454ca",
+                "reference": "bd593e9ac587b92b0af3fae4fb186cc573c454ca",
                 "shasum": ""
             },
             "require": {
-                "nikic/fast-route": "^0.7.0",
+                "nikic/fast-route": "^1.0",
                 "php": ">=5.4",
-                "pimple/pimple": "~3.0",
+                "pimple/pimple": "^3.0",
                 "zendframework/zend-diactoros": "^1.3"
             },
             "type": "library",
@@ -185,25 +185,25 @@
                 }
             ],
             "description": "Ant framework. A small tool for big purpose.",
-            "homepage": "https://github.com/shubinmi/ant",
+            "homepage": "https://github.com/shubinmi/ant-framework-php",
             "keywords": [
                 "ant",
                 "framework"
             ],
-            "time": "2016-10-27 18:48:41"
+            "time": "2016-11-19 11:26:15"
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.3.7",
+            "version": "1.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "969ff423d3f201da3ff718a5831bb999bb0669b0"
+                "reference": "83e8d98b9915de76c659ce27d683c02a0f99fa90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/969ff423d3f201da3ff718a5831bb999bb0669b0",
-                "reference": "969ff423d3f201da3ff718a5831bb999bb0669b0",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/83e8d98b9915de76c659ce27d683c02a0f99fa90",
+                "reference": "83e8d98b9915de76c659ce27d683c02a0f99fa90",
                 "shasum": ""
             },
             "require": {
@@ -215,7 +215,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.6 || ^5.5",
-                "squizlabs/php_codesniffer": "^2.3.1"
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
@@ -240,13 +240,15 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2016-10-11 13:25:21"
+            "time": "2017-01-23 04:53:24"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "shubinmi/ant-framework-php": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
