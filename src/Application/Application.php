@@ -60,7 +60,11 @@ class Application
             $this->di     = new DI($this->config->getParams());
             $this->router = new Router($this->config->getParams()[Config::ROUTER]);
         } catch (\Exception $e) {
-            throw new \Exception('Can\'t load config. ' . $e->getMessage());
+            $html = <<<HTML
+<pre>Can't load config.<br>Error code: {$e->getCode()}<br>{$e->getMessage()}<br>{$e->getTraceAsString()}</pre>
+HTML;
+            $this->response->withStatus(500, 'Application error');
+            $this->writeBody($html)->render();
         }
 
         return $this;
