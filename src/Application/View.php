@@ -182,7 +182,7 @@ class View
     {
         if ($elements instanceof ViewLayoutElement) {
             $elements = [
-                $elements->name = [
+                $elements->name => [
                     ViewLayoutElement::PROPERTY_PATH => $elements->path,
                     ViewLayoutElement::PROPERTY_NAME => $elements->vars
                 ]
@@ -190,11 +190,12 @@ class View
         }
         foreach ($elements as $elementName => $element) {
             if ($element instanceof ViewLayoutElement) {
-                $element = [
+                $element     = [
                     ViewLayoutElement::PROPERTY_NAME => $element->name,
-                    ViewLayoutElement::PROPERTY_PATH => $elements->path,
-                    ViewLayoutElement::PROPERTY_VARS => $elements->vars
+                    ViewLayoutElement::PROPERTY_PATH => $element->path,
+                    ViewLayoutElement::PROPERTY_VARS => $element->vars
                 ];
+                $elementName = $element[ViewLayoutElement::PROPERTY_NAME];
             } else {
                 $element[ViewLayoutElement::PROPERTY_NAME] = $elementName;
             }
