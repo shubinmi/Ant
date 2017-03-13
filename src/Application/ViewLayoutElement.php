@@ -52,4 +52,61 @@ class ViewLayoutElement
 
         return $errors;
     }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return $this
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getVars()
+    {
+        return $this->vars;
+    }
+
+    /**
+     * @param array $vars
+     *
+     * @return $this
+     */
+    public function setVars($vars)
+    {
+        $this->vars = $vars;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
 }

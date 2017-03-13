@@ -2,6 +2,7 @@
 
 namespace AntExample\Application\Controllers;
 
+use Ant\Application\ViewLayoutElement;
 use Ant\Plugins\Seo\ItempropMeta;
 use Ant\Plugins\Seo\Meta;
 use Ant\Plugins\Seo\Og;
@@ -75,7 +76,12 @@ class Main extends CoreController
                     'error' => 'Error is\'t found.',
                     'log'   => 'Seo plugin applied success. Open source code of page.'
                 ]
-            ]
+            ],
+            // It means that {{head}} at layout.phtml (and at other view elements) will be
+            // replaced to content from head.phtml
+            (new ViewLayoutElement())
+                ->setName('head')
+                ->setPath(__DIR__ . '/../Views/head.phtml')
         ];
 
         return $this->getView()
