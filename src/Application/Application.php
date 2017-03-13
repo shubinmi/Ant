@@ -124,22 +124,24 @@ HTML;
         } catch (\Exception $e) {
             throw new \Exception('Empty handler on router');
         }
-        try {
-            /** @var Controller $controller */
-            $controller = new $controllerClass();
-        } catch (\Exception $e) {
+        if (!class_exists($controllerClass)) {
             throw new \Exception('Can\'t find controller class ' . $controllerClass);
         }
-        $controller->setRequest($this->request);
-        $controller->setDi($this->di);
-        $controller->setResponse($this->response);
-        $controller->init();
-        try {
-            $view = $controller->{$action}();
-        } catch (\Exception $e) {
+        /** @var Controller $controller */
+        $controller = new $controllerClass();
+        if ($controller instanceof Controller) {
+            $controller->setRequest($this->request);
+            $controller->setDi($this->di);
+            $controller->setResponse($this->response);
+            $controller->init();
+        }
+        if (!method_exists($controller, $action)) {
             throw new \Exception('Can\'t find method "' . $action . '" at ' . $controllerClass);
         }
-        $this->response = $controller->getResponse();
+        $view = $controller->{$action}();
+        if ($controller instanceof Controller) {
+            $this->response = $controller->getResponse();
+        }
 
         return $view;
     }
