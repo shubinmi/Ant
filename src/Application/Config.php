@@ -64,7 +64,7 @@ class Config
     {
         $result = $router = [];
         foreach ($params as $key => $value) {
-            if ($key == self::ROUTER) {
+            if ($key === self::ROUTER) {
                 foreach ($value as $name => $item) {
                     if ($item instanceof RouterConfig) {
                         $router[$item->getName()] = $item->convertToConfigArray();

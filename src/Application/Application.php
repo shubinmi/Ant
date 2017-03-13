@@ -110,23 +110,25 @@ HTML;
      */
     private function getControllerResult(array $handler)
     {
-        try {
-            if (
-                !empty($handler[RouterConfig::PROPERTY_HANDLER])
-                && is_callable($handler[RouterConfig::PROPERTY_HANDLER])
-            ) {
-                $callable = $handler[RouterConfig::PROPERTY_HANDLER];
-                if (is_string($callable)) {
-                    $callable = explode('::', $callable);
-                }
-                $controllerClass = get_class($callable[0]);
-                $action          = $callable[1];
-            } else {
-                $controllerClass = '\\' . $handler[RouterConfig::PROPERTY_CONTROLLER];
-                $action          = $handler[RouterConfig::PROPERTY_ACTION];
+        if (
+            !empty($handler[RouterConfig::PROPERTY_HANDLER])
+            && is_callable($handler[RouterConfig::PROPERTY_HANDLER])
+        ) {
+            $callable = $handler[RouterConfig::PROPERTY_HANDLER];
+            if (is_string($callable)) {
+                $callable = explode('::', $callable);
             }
-        } catch (\Exception $e) {
-            throw new \Exception('Empty handler on router');
+            if (is_string($callable[0]) && class_exists($callable[0])) {
+                $controllerClass = $callable[0];
+            } elseif (is_object($callable[0])) {
+                $controllerClass = get_class($callable[0]);
+            } else {
+                throw new \Exception('Wrong handler on router. ' . json_encode($handler));
+            }
+            $action = $callable[1];
+        } else {
+            $controllerClass = '\\' . $handler[RouterConfig::PROPERTY_CONTROLLER];
+            $action          = $handler[RouterConfig::PROPERTY_ACTION];
         }
         if (!class_exists($controllerClass)) {
             throw new \Exception('Can\'t find controller class ' . $controllerClass);

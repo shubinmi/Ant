@@ -2,7 +2,9 @@
 
 namespace Ant\Plugins\Seo;
 
-class SeoViewPlugin
+use Ant\Interfaces\ViewPluginInterface;
+
+class SeoViewPlugin implements ViewPluginInterface
 {
     /**
      * @var Seo

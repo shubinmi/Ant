@@ -2,6 +2,8 @@
 
 namespace Ant\Application;
 
+use Ant\Interfaces\ViewPluginInterface;
+
 class View
 {
     /**
@@ -35,25 +37,35 @@ class View
     }
 
     /**
-     * @param callable $plugin
+     * @param callable|ViewPluginInterface $plugin
      *
      * @return $this
+     * @throws \Exception
      */
-    public function addPlugin(callable $plugin)
+    public function addPlugin($plugin)
     {
+        if ($plugin instanceof ViewPluginInterface) {
+            $plugin = [$plugin, 'apply'];
+        }
+        if (!is_callable($plugin)) {
+            throw new \Exception('Incorrect view plugin. ' . json_encode($plugin));
+        }
         $this->plugins[] = $plugin;
 
         return $this;
     }
 
     /**
-     * @param callable[] $plugins
+     * @param callable[]|ViewPluginInterface[] $plugins
      *
      * @return $this
      */
     public function setPlugins(array $plugins)
     {
-        $this->plugins = $plugins;
+        $this->plugins = [];
+        foreach ($plugins as $plugin) {
+            $this->addPlugin($plugin);
+        }
 
         return $this;
     }
