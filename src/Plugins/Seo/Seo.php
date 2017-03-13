@@ -2,7 +2,7 @@
 
 namespace Ant\Plugins\Seo;
 
-use Ant\Libraries\ObjectsCollection;
+use Ant\Types\ObjectsCollection;
 
 class Seo implements SeoInterface
 {

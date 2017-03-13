@@ -2,6 +2,7 @@
 
 namespace Ant\Application;
 
+use Ant\Types\RouterConfig;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
@@ -40,7 +41,7 @@ class Application
         $this->di       = new DI();
         $this->router   = new Router();
         $this->request  = ServerRequestFactory::fromGlobals();
-        $response = new Response();
+        $response       = new Response();
         $this->response = $response->withHeader('Content-Type', 'text/html; charset=utf-8');
     }
 
@@ -48,25 +49,37 @@ class Application
      * @param array $configDirPaths
      *
      * @return $this
+     * @throws \Exception
      */
     public function loadConfig(array $configDirPaths)
     {
-        foreach ($configDirPaths as $path) {
-            $this->config->addConfigsFromDir($path);
+        try {
+            foreach ($configDirPaths as $path) {
+                $this->config->addConfigsFromDir($path);
+            }
+            $this->di     = new DI($this->config->getParams());
+            $this->router = new Router($this->config->getParams()[Config::ROUTER]);
+        } catch (\Exception $e) {
+            throw new \Exception('Can\'t load config. ' . $e->getMessage());
         }
-
-        $this->di     = new DI($this->config->getParams());
-        $this->router = new Router($this->config->getParams()['router']);
 
         return $this;
     }
 
     public function run()
     {
-        $controllerDeclaration = $this->router->dispatch($this->request);
-        $this->request         = $this->request->withQueryParams($controllerDeclaration['params']);
-        $view                  = $this->getControllerResult($controllerDeclaration['handler']);
-        $this->writeBody($view)->render();
+        try {
+            $controllerDeclaration = $this->router->dispatch($this->request);
+            $this->request         = $this->request->withQueryParams($controllerDeclaration['params']);
+            $view                  = $this->getControllerResult($controllerDeclaration['handler']);
+            $this->writeBody($view)->render();
+        } catch (\Exception $e) {
+            $html = <<<HTML
+<pre>Error code: {$e->getCode()}<br>{$e->getMessage()}<br>{$e->getTraceAsString()}</pre>
+HTML;
+            $this->response->withStatus(500, 'Application error');
+            $this->writeBody($html)->render();
+        }
     }
 
     /**
@@ -89,19 +102,43 @@ class Application
      * @param array $handler
      *
      * @return View|string
+     * @throws \Exception
      */
     private function getControllerResult(array $handler)
     {
-        $controllerClass = '\\' . $handler['controller'];
-        $action          = $handler['action'];
-        /** @var Controller $controller */
-        $controller = new $controllerClass();
+        try {
+            if (
+                !empty($handler[RouterConfig::PROPERTY_HANDLER])
+                && is_callable($handler[RouterConfig::PROPERTY_HANDLER])
+            ) {
+                $callable = $handler[RouterConfig::PROPERTY_HANDLER];
+                if (is_string($callable)) {
+                    $callable = explode('::', $callable);
+                }
+                $controllerClass = get_class($callable[0]);
+                $action          = $callable[1];
+            } else {
+                $controllerClass = '\\' . $handler[RouterConfig::PROPERTY_CONTROLLER];
+                $action          = $handler[RouterConfig::PROPERTY_ACTION];
+            }
+        } catch (\Exception $e) {
+            throw new \Exception('Empty handler on router');
+        }
+        try {
+            /** @var Controller $controller */
+            $controller = new $controllerClass();
+        } catch (\Exception $e) {
+            throw new \Exception('Can\'t find controller class ' . $controllerClass);
+        }
         $controller->setRequest($this->request);
         $controller->setDi($this->di);
         $controller->setResponse($this->response);
         $controller->init();
-
-        $view           = $controller->{$action}();
+        try {
+            $view = $controller->{$action}();
+        } catch (\Exception $e) {
+            throw new \Exception('Can\'t find method "' . $action . '" at ' . $controllerClass);
+        }
         $this->response = $controller->getResponse();
 
         return $view;

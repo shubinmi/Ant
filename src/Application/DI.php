@@ -6,6 +6,8 @@ use Pimple\Container;
 
 class DI
 {
+    const CONTAINER_CONFIG = 'config';
+
     /**
      * @var Container
      */
@@ -17,9 +19,10 @@ class DI
     public function __construct(array $config = [])
     {
         $this->container = new Container();
-        $this->container['config'] = $config;
-        if (!empty($config['di'])) {
-            foreach ($config['di'] as $key => $conf) {
+
+        $this->container[self::CONTAINER_CONFIG] = $config;
+        if (!empty($config[Config::DI])) {
+            foreach ($config[Config::DI] as $key => $conf) {
                 $this->container[$key] = $conf;
             }
         }
@@ -38,5 +41,13 @@ class DI
         }
 
         return $this->container[$key];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllConfig()
+    {
+        return $this->getContainer(self::CONTAINER_CONFIG);
     }
 }
