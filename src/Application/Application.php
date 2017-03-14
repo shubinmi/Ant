@@ -81,7 +81,7 @@ HTML;
             $html = <<<HTML
 <pre>Error code: {$e->getCode()}<br>{$e->getMessage()}<br>{$e->getTraceAsString()}</pre>
 HTML;
-            $this->response->withStatus(500, 'Application error');
+            $this->response = $this->response->withStatus(500, 'Application error');
             $this->writeBody($html)->render();
         }
     }
