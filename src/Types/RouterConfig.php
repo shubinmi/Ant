@@ -208,7 +208,8 @@ class RouterConfig
         if (!$this->getName()) {
             throw new \Exception('Empty required property "name"');
         }
-        if (empty($this->getMethods())) {
+        $methods = $this->getMethods();
+        if (empty($methods)) {
             throw new \Exception('Empty required property "methods"');
         }
         if (!$this->getPath()) {
